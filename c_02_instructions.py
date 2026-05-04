@@ -16,7 +16,10 @@ def str_checker(question, available_choices, num_letters, error):
 # main routine
 
 while True:
+    # accepts "yes, no, y or n"
     yes_no = str_checker("Would you like to view the instructions? ", ["yes","no"], 1, "Please enter either yes or no.")
+
+    # if we want to see instructions then show them
     if yes_no == "yes":
         print("Show Instructions")
     else:

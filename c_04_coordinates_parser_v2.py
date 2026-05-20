@@ -8,7 +8,7 @@ def create_coordinates():
         # print(f"you entered: {coordinates}")
 
         # regex is the worst thing to come of programming ever humanity was meant to be able to read things
-        coordinates_stripped = re.match("^\(?-?\d+(\.\d*)?,(\s)?-?\d+(\.\d*)?\)?$", coordinates)
+        coordinates_stripped = re.match("^\(?-?\d+(\.\d+)?,(\s)?-?\d+(\.\d+)?\)?$", coordinates)
 
         if coordinates_stripped:
             # remove characters from coordinates array and split at the comma to create an array from our coordinates.

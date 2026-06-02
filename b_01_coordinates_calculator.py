@@ -3,29 +3,23 @@ from tabulate import tabulate
 import re
 import math as m
 
-def str_checker(question, available_choices, num_letters, error):
+def yes_no(question, error = "Please enter yes or no."):
     """returns the string if it meets anything in available_choices"""
     while True:
         choice = input(question).lower()
-        for item in available_choices:
+        for item in ["yes", "no"]:
 
             if choice == item:
                 return item
 
             # check first num_letters of letters to see if they tried to write the answer
-            elif choice == item[:num_letters]:
+            elif choice == item[:1]:
                 return item
 
         print(error)
 
-def num_check_low(question, num_type, low, error, exitcode=None):
-    """only accept numbers within a certain range"""
-
-    # define change_to variable as either the int function or the float function
-    if num_type == "int":
-        change_to = int
-    else:
-        change_to = float
+def int_check_low(question, low, error, exitcode=None):
+    """only accept integers within a certain range"""
 
     while True:
         try:
@@ -35,8 +29,8 @@ def num_check_low(question, num_type, low, error, exitcode=None):
                 return exitcode
 
             # check if in range
-            if low <= change_to(response):
-                return change_to(response)
+            if low <= int(response):
+                return int(response)
             else: print(error)
 
         # checks that number is valid
@@ -108,17 +102,16 @@ def pretty_coordinates(coord_array):
 print(styled_statement("ULTIMATE COORDINATES CALCULATOR", "*", 5))
 
 # accepts "yes, no, y or n"
-yes_no = str_checker("\nWould you like to view the instructions? ", ["yes", "no"], 1,
-                     "Please enter either yes or no.")
+show_instructions = yes_no("\nWould you like to view the instructions? ")
 
 # if we want to see instructions then show them
-if yes_no == "yes":
+if show_instructions == "yes":
     print("Show Instructions")
 else:
     print("Not showing instructions")
 
 # get number of questions
-question_limit = num_check_low("Enter how many questions you would like to solve (blank for infinite): ", "int", 1, "Please enter a whole number larger than 0, or leave blank for infinite mode.\n", "")
+question_limit = int_check_low("Enter how many questions you would like to solve (blank for infinite): ", 1, "Please enter a whole number larger than 0, or leave blank for infinite mode.\n", "")
 
 if question_limit == "": # infinite mode
     print("infinite mode\n")

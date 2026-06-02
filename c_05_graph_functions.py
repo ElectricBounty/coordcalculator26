@@ -7,7 +7,7 @@ def create_coordinates(question):
 
         # print(f"you entered: {coordinates}")
 
-        # regex is the worst thing to come of programming ever humanity was meant to be able to read things
+        # use regex to check for if the input matches the pattern for coordinates (validating input)
         coordinates_stripped = re.match("^\(?-?\d+(\.\d+)?,(\s)?-?\d+(\.\d+)?\)?$", coordinates)
 
         if coordinates_stripped:
@@ -52,6 +52,7 @@ while True:
     coordinates_1 = create_coordinates("1st coordinate: ")
     coordinates_2 = create_coordinates("2nd coordinate: ")
 
+    print(f"\nCoordinates: {coordinates_1}, {coordinates_2}")
     print(f"\nMidpoint: {midpoint(coordinates_1, coordinates_2)}")
     print(f"Distance: {distance(coordinates_1, coordinates_2):.2f}")
     print(f"Gradient: {gradient(coordinates_1, coordinates_2):.2f}")

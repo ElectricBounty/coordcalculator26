@@ -7,7 +7,7 @@ def create_coordinates():
 
         # print(f"you entered: {coordinates}")
 
-        # regex is the worst thing to come of programming ever humanity was meant to be able to read things
+        # use regex to check for if the input matches the pattern for coordinates (validating input)
         coordinates_stripped = re.match("^\(?-?\d+(\.\d+)?,(\s)?-?\d+(\.\d+)?\)?$", coordinates)
 
         if coordinates_stripped:

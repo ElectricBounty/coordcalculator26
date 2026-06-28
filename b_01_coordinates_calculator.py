@@ -43,8 +43,8 @@ def create_coordinates(question, exitcode=None):
         # get user's coordinates
         coordinates = input(question)
 
-        if coordinates == exitcode:
-            pass
+        if coordinates == exitcode.lower():
+            return exitcode
 
         # print(f"you entered: {coordinates}")
 
@@ -106,9 +106,15 @@ show_instructions = yes_no("\nWould you like to view the instructions? ")
 
 # if we want to see instructions then show them
 if show_instructions == "yes":
-    print("Show Instructions")
+    print(styled_statement("INSTRUCTIONS", "=", 3))
+    print('''- Choose how many times you would like to run the calculator, or enter blank for it to run infinitely
+- Enter two sets of coordinates, which can be formatted with brackets or not, e.g 1,2 or (1, 2)
+- The program will calculate the midpoint, distance, gradient and line equation between each coordinate
+- Type xxx at any time after entering the number of questions to end the program early
+''')
+
 else:
-    print("Not showing instructions")
+    print("Not showing instructions.")
 
 # get number of questions
 question_limit = int_check_low("Enter how many questions you would like to solve (blank for infinite): ", 1, "Please enter a whole number larger than 0, or leave blank for infinite mode.\n", "")
@@ -116,18 +122,27 @@ question_limit = int_check_low("Enter how many questions you would like to solve
 if question_limit == "": # infinite mode
     print("infinite mode\n")
 else:
-    print(f"number of questions to answer: {question_limit}\n")
+    print(f"Number of questions to answer: {question_limit}\n")
 
 questions_ran = 1
 
-while question_limit == "" or question_limit <= questions_ran:
-
+while question_limit == "" or question_limit >= questions_ran:
+    if questions_ran > 1:
+        end_program = input("Press any key to continue or enter XXX to end the program..\n")
+        if end_program.lower() == "xxx":
+            break
+    
     print(styled_statement(f"Question {questions_ran}", "=", 3))
 
-    # gets both coordinate points for our question
-    coordinates_1 = create_coordinates("1st coordinate: ")
-    coordinates_2 = create_coordinates("2nd coordinate: ")
-
+    questions_ran += 1
+    
+    # gets both coordinate points for our question, exit if exit code was entered
+    coordinates_1 = create_coordinates("1st coordinate: ", "xxx")
+    if coordinates_1 == "xxx": break
+    
+    coordinates_2 = create_coordinates("2nd coordinate: ",  "xxx")
+    if coordinates_2 == "xxx": break;
+    
     # header of tabulate output
     header_output = ["Coordinates", f"{pretty_coordinates(coordinates_1)}, {pretty_coordinates(coordinates_2)}"]
 
@@ -141,4 +156,5 @@ while question_limit == "" or question_limit <= questions_ran:
 
     print(tabulate(main_output, header_output, tablefmt="simple_outline", colalign=["left", "left"]))
 
-    questions_ran += 1
+print("\nThank you for using the Ultimate Coordinates Calculator.")
+input()

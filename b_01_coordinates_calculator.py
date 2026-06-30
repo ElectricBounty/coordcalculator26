@@ -120,23 +120,30 @@ else:
 question_limit = int_check_low("Enter how many questions you would like to solve (blank for infinite): ", 1, "Please enter a whole number larger than 0, or leave blank for infinite mode.\n", "")
 
 if question_limit == "": # infinite mode
-    print("infinite mode\n")
+    print("Infinite Mode Selected\n")
 else:
     print(f"Number of questions to answer: {question_limit}\n")
 
 questions_ran = 1
 
+# check if we are in infinite mode, or if we actually have a question limit, and continue the program if we haven't exceeded the number of questions set
 while question_limit == "" or question_limit >= questions_ran:
+
+    # has the program looped
     if questions_ran > 1:
-        end_program = input("Press any key to continue or enter XXX to end the program..\n")
+        # ask the user if they want to continue the program or quit, gives the user time to read output
+        end_program = input("Press enter to continue or type XXX to end the program..\n")
         if end_program.lower() == "xxx":
             break
     
     print(styled_statement(f"Question {questions_ran}", "=", 3))
 
+    # increment number of questions by one
     questions_ran += 1
     
     # gets both coordinate points for our question, exit if exit code was entered
+    # we check for xxx individually after getting each coordinate so that it doesn't feel clunky
+    # (e.g the user enters xxx as the first coordinate and then is asked for the second coordinate still)
     coordinates_1 = create_coordinates("1st coordinate: ", "xxx")
     if coordinates_1 == "xxx": break
     
@@ -154,7 +161,7 @@ while question_limit == "" or question_limit >= questions_ran:
         ["Equation",    create_equation(coordinates_1, coordinates_2)]
     ]
 
+    #  format the results as a tabulate table in simple_outline format
     print(tabulate(main_output, header_output, tablefmt="simple_outline", colalign=["left", "left"]))
 
 print("\nThank you for using the Ultimate Coordinates Calculator.")
-input()

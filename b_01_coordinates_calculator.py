@@ -46,8 +46,6 @@ def create_coordinates(question, exitcode=None):
         if coordinates == exitcode.lower():
             return exitcode
 
-        # print(f"you entered: {coordinates}")
-
         # use regex to check for if the input matches the pattern for coordinates (validating input)
         coordinates_stripped = re.match("^\(?-?\d+(\.\d+)?,(\s)?-?\d+(\.\d+)?\)?$", coordinates)
 
@@ -87,7 +85,7 @@ def gradient(coord1, coord2):
 
 def create_equation(coord1,coord2):
     """get y intercept (by substituting 1 coordinate in with the gradient"""
-    # we add
+    # we add 0.0 to our c value because python will return -0.0 rarely and is unintuitive to the user, adding 0.0 fixes this
     c = -(gradient(coord1,coord2) * coord1[0] - coord1[1]) + 0.0
 
     # string function of the line
